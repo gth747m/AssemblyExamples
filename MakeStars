@@ -1,0 +1,15 @@
+PROGRAM = stars
+SOURCE  = stars.asm
+OBJ     = $(SOURCE:.asm=.o)
+NASM    = /usr/bin/nasm
+LD      = /usr/bin/ld
+
+$(PROGRAM): $(SOURCE)
+	$(NASM) -f elf $(SOURCE)
+	$(LD) -m elf_i386 -s -o $@ $(OBJ)
+
+clean:
+	rm -f $(OBJ) $(PROGRAM)
+
+neat:
+	rm -f $(OBJ)

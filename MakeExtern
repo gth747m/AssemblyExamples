@@ -1,0 +1,37 @@
+# Name of the executable to compile
+PROGRAM = extern
+
+# Source Files
+SRCS = extern1.asm
+SRCS+= extern2.asm
+
+# Compiler to use
+COMP = nasm
+
+# Compiler Flags (individual modules)
+COMPFLG = -f elf
+
+# Linker
+LINK = ld
+
+# Linker Flags
+LINKFLG = -m elf_i386 -s
+
+# Compiled Object Files
+OBJS = $(SRCS:.asm=.o)
+
+$(PROGRAM): $(OBJS)
+	$(LINK) $(LINKFLG) -o $@ $^
+
+%.o: %.asm
+	$(COMP) $(COMPFLG) -o $@ $<
+
+run: $(PROGRAM)
+	@./$(PROGRAM)
+
+clean:
+	rm -f $(PROGRAM) $(OBJS)
+
+neat:
+	rm -f $(OBJS)
+
